@@ -8,7 +8,7 @@
 
 
 ## Descripción
-Se inicilizan las libreriaas correspndientes y se toma la temperatura del LCD constatemente para determinar la estacion del año. Dependiendo si la temperatura excedio el limite 
+Se inicilizan las librerias correspndientes y se toma la temperatura del LCD constatemente para determinar la estacion del año. Dependiendo si la temperatura excedio el limite se prendera el servo y el led rojo.
 
 ## Funciónes
 Esta funcion se encarga de encender y apagar los leds.
