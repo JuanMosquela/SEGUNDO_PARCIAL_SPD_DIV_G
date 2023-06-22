@@ -1,4 +1,4 @@
-# Ejemplo Documentación Dojos
+# Segundo Parcial SPD
 ![Tinkercad](./img/arduino-proyect.png)
 
 
@@ -10,7 +10,7 @@
 ## Descripción
 Se inicilizan las libreriaas correspndientes y se toma la temperatura del LCD constatemente para determinar la estacion del año. Dependiendo si la temperatura excedio el limite 
 
-## Función principal
+## Funciónes
 Esta funcion se encarga de encender y apagar los leds.
 
 B0, B1, B2, B3 son #define que utilizamos para agregar los leds, asociandolo a pines de la placa arduino.
