@@ -1,17 +1,14 @@
 # Ejemplo Documentación Dojos
-![Tinkercad](./img/ArduinoTinkercad.jpg)
+![Tinkercad](./img/arduino-proyect.png)
 
 
 ## Integrantes 
-- Esteban Marcelo Quiroz  
+- Juan Manuel Mosquella 
 
-
-## Proyecto: Contador binario.
-![Tinkercad](./img/ContadorBinario.png)
 
 
 ## Descripción
-En este parrafo deberan describir que funcion cumple su proyecto. Que solucion esta ofreciendo.
+Se inicilizan las libreriaas correspndientes y se toma la temperatura del LCD constatemente para determinar la estacion del año. Dependiendo si la temperatura excedio el limite 
 
 ## Función principal
 Esta funcion se encarga de encender y apagar los leds.
@@ -21,29 +18,108 @@ B0, B1, B2, B3 son #define que utilizamos para agregar los leds, asociandolo a p
 (Breve explicación de la función)
 
 ~~~ C (lenguaje en el que esta escrito)
-void EncenderBinario(int estado3, int estado2,int estado1,int estado0)
-{
-  digitalWrite(B3,estado3);
-  digitalWrite(B2,estado2);
-  digitalWrite(B1,estado1);
-  digitalWrite(B0,estado0);
+float take_temp(int sensor) {
+  int lectura = analogRead(sensor);
+  float temp = map(lectura, 20, 358, -40, 125); 
+  return temp;
 }
+
+void changeState(){
+  running = !running;
+}
+
+
+void TurnOnTurnOffLCD(bool running){
+  if (running){
+    
+    for (int pos = 0; pos <= 180; pos++) {
+      servo.write(pos);    
+    
+    }   
+    
+    float temp = take_temp(A0);
+   
+    season = checkSeason(temp);
+    
+    
+    lcd_1.setCursor(1, 0);
+    lcd_1.print(season);
+   
+    lcd_1.setCursor(0, 1);
+   
+    lcd_1.print(temp);
+    delay(1000);
+  }
+  else{   
+    
+    lcd_1.clear();
+  }  
+}
+
+String checkSeason(float temp){
+ 
+  if ( temp <= 60){
+    season = "Verano";
+  }
+  else if (temp <= 20 ){
+    season = "Otonio";
+  }
+  else if (temp <= 15){
+    season = "Primavera";
+  }
+  else if (temp <= 10){
+    season = "Invierno";
+  }
+   else if (temp >= 60){
+    season = "Incendio";
+    
+  }
+  
+  return season;
+}
+
+void TurnOnOffServo(){
+  
+  Serial.println(season);
+ 
+  if (season == "Incendio"){
+     servo.attach(9);
+     servo.write(180);
+    
+  }
+  else {
+    servo.detach();
+  }
+}
+
+
+void TurnOnOffLed(){
+  if (season == "Incendio"){
+    digitalWrite(LED_ROJO, HIGH);
+    digitalWrite(LED_VERDE, LOW);
+  }
+  else{
+     digitalWrite(LED_VERDE, HIGH);
+    digitalWrite(LED_ROJO, LOW);
+  }
+  
+}
+
+
 ~~~
 
 ## :robot: Link al proyecto
-- [proyecto](https://www.tinkercad.com/things/aOYiibnDjWu)
+- [proyecto](https://www.tinkercad.com/things/iGt1vfQsb6Z-stunning-gaaris-krunk/editel?sharecode=sHoOaI4jhO7y2fHUF_WvPFkbtHwwwsADMe2r4zDds1A)
 ## :tv: Link al video del proceso
-- [video](https://www.youtube.com/watch?v=VyGjE8kx-O0)
+
 
 ---
-### Fuentes
-- [Consejos para documentar](https://www.sohamkamani.com/how-to-write-good-documentation/#architecture-documentation).
 
 - [Lenguaje Markdown](https://markdown.es/sintaxis-markdown/#linkauto).
 
 - [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
 
-- [Tutorial](https://www.youtube.com/watch?v=oxaH9CFpeEE).
+
 
 - [Emojis](https://gist.github.com/rxaviers/7360908).
 
